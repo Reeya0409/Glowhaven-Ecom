@@ -1,0 +1,23 @@
+*{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.logo{
+width:7%;
+height:7%;
+}
+/* .card img .prodimg {
+    width: 100px;
+    
+    height: 100px;
+} */
+ /* .admin_image{
+    width: 100px;
+    object-fit:contain
+ } */
+ .cart_image{
+    height: 50px;
+    width: 50px;
+ }
+

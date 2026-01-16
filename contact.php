@@ -1,0 +1,179 @@
+<?php
+include('./include/connect.php');
+include('./functions/common_function.php');
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+     <!-- bootstrap css link -->
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- css files -->
+    <link href="style.css" rel="stylesheet">
+
+    <link href="./fontawesome-free-6.4.0-web/css/all.css" rel="stylesheet">
+    <style>
+        body{
+            overflow-x:hidden;
+        }
+        .logo{
+         width:7%;
+         height:7%;
+         }
+
+ </style>
+</head>
+<body>
+
+
+
+
+   <!-- navbar -->
+    <div class="container-fluid p-0">
+        <!-- first child -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-info">
+            <div class="container-fluid">
+                <img src="./images/logo.png" alt="" class="logo">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="./index.php">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./display_all.php">Products</a>
+                        </li>
+                        <!-- <li class="nav-item">
+                            <a class="nav-link" href="./profile.php">My Account</a>
+                        </li> -->
+                        <!-- <li class="nav-item">
+                            <a class="nav-link" href="#">Contact</a>
+                        </li> -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="./cart.php"><i class="fa-solid fa-cart-shopping"></i><sup><?php cart_item();?></sup></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Total Price: <?php total_cart_price(); ?> /-</a>
+                        </li>
+                    </ul>
+                    <form class="d-flex" action="./search_product.php" method="get">
+                        <input class="form-control me-2" type="search" placeholder="Search" name="search_data">
+                    <input type="submit" value="search" class="btn btn-outline-light" name="search_data_product">
+                    </form>
+                </div>
+            </div>
+        </nav>
+
+<!-- calling cart function -->
+ <?php
+ cart();
+ ?>
+        <!-- second child -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
+            <ul class="navbar-nav me-auto">
+          
+                <?php
+                 if(!isset($_SESSION['username'])){
+                    echo"        <li class='nav-item'>
+                    <a class='nav-link' href='#'>Welcome Guest</a>
+                </li>";
+
+                }else{
+                    echo"     <li class='nav-item'>
+                    <a class='nav-link' href='#'>Welcome ".$_SESSION['username']."</a>
+                </li>";
+                }
+
+                
+                if(!isset($_SESSION['username'])){
+                    echo"  <a class='nav-link' href='./user_login.php'>Login</a>";
+
+                }else{
+                    echo"  <a class='nav-link' href='./user_logout.php'>Logout</a>";
+                }
+                ?>
+            </ul>
+        </nav>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="container-fluid my-3">
+        <h2 class="text-center">Contact Us </h2>
+    <div class="row d-flex align-item-center justify-content-center">
+        <div class="col-lg-12 col-xl-6">
+<form action="" method="post" enctype="multipart/form-data">
+    <!-- username -->
+    <div class="form-outline mb-4">
+        <label for="username" class="form-label">Username</label>
+        <input type="text" id="username" class="form-control" placeholder="Enter your username" autocomplete="off" required="required" name ="username">
+    </div>
+    <!-- email -->
+    <div class="form-outline mb-4">
+        <label for="user_email" class="form-label">Email</label>
+        <input type="email" id="user_email" class="form-control" placeholder="Enter your Email" autocomplete="off" required="required" name ="user_email">
+    </div>
+     <!-- mobile -->
+     <div class="form-outline mb-4">
+        <label for="mobile" class="form-label">Mobile</label>
+        <input type="tel" maxlength="10" id="mobile" class="form-control" placeholder="Enter your Mobile" autocomplete="off" required="required" name ="mobile">
+    </div>
+    <!-- message -->
+     <div class="form-outline mb-4">
+        <label for="user_email" class="form-label">Your Message</label>
+        <textarea name="message" id="message" class="form-control" placeholder="Enter your Message" autocomplete="off" required="required" >
+        </textarea>
+        </div>
+    
+    <div class="mt-4 pt-2">
+        <input type="submit" value="Send"class="bg-info py-2 px-3 border-0" name="contact_us">
+    </div>
+</form>
+        </div>
+    </div>
+    </div>
+</body>
+</html>
+
+<!-- php-->
+
+<?php
+if(isset($_POST['contact_us'])){
+    $username=$_POST['username'];
+    $user_email=$_POST['user_email'];
+    $mobile=$_POST['mobile'];
+    $message=$_POST['message'];
+    
+// insert query
+$insert_query="insert into `contact_us` (username,user_email,mobile,message) values('$username','$user_email','$mobile','$message')";
+$sql_execute=mysqli_query($con, $insert_query);
+if($sql_execute){
+echo "<script>alert('Message sent sucessfully')</script>";
+echo "<script>windows.open('./index.php','_self')</script>";
+}
+else{
+die(mysqli_error($con));
+}
+        }
+
+
+
+
+?>
