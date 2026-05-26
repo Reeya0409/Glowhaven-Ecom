@@ -82,7 +82,7 @@ Users can browse products, add items to cart, and place orders.
 </table>
 
 <h3>⚙️ Admin Dashboard</h3>
-<img src="demo images/10.png" width="50%">
+<img src="demo images/10.png" width="100%">
 
 ---
 
